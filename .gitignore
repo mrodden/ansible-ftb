@@ -2,3 +2,5 @@
 
 .venv
 venv
+
+*.tar.gz
