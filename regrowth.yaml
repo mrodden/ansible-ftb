@@ -1,0 +1,5 @@
+---
+- hosts: regrowth_servers
+  roles:
+    - gentoo-java
+    - { role: ftb_server, server_type: regrowth }

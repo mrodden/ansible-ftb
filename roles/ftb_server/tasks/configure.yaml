@@ -1,0 +1,8 @@
+- name: configure server
+  template:
+    src: server.properties.j2
+    dest: ~/ftb_servers/{{ server_name }}/server.properties
+- name: accept EULA file
+  file:
+    src: eula.txt
+    dest: "~/ftb_servers/{{ server_name }}/eula.txt"

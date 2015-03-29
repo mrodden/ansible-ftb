@@ -1,4 +1,4 @@
 ---
 - hosts: localhost
   roles:
-    - ftb_server
+    - { role: ftb_server, server_type: infinity }

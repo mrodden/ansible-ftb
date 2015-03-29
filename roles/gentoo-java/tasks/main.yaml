@@ -1,0 +1,27 @@
+---
+- name: unset X USE globally
+  command: euse -D X
+  ignore_errors: yes
+- name: unset CUPS USE globally
+  command: euse -D cups
+  ignore_errors: yes
+- name: touch package.license
+  file:
+    state: touch
+    path: /etc/portage/package.license
+- name: update package.license
+  lineinfile:
+    dest: /etc/portage/package.license
+    state: present
+    regexp: "^>=dev-java/oracle-jre-bin"
+    line: ">=dev-java/oracle-jre-bin-1.7.0.76:1.7 Oracle-BCLA-JavaSE"
+- name: copy oracle-jre7 to host
+  copy:
+    src: jre-7u76-linux-x64.tar.gz
+    dest: /usr/portage/distfiles/
+- name: install oracle-jre
+  portage:
+    name: dev-java/oracle-jre-bin
+    state: present
+- name: set default VM to oracle
+  command: java-config --set-system-vm oracle-jre-bin-1.7

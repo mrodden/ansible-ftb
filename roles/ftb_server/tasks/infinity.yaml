@@ -1,0 +1,19 @@
+---
+- { include: install.yaml,
+    server_url: 'http://ftb.cursecdn.com/FTB2/modpacks/FTBInfinity/1_1_0/FTBInfinityServer.zip',
+    server_name: FTBInfinityServer,
+    server_version: 1.1.0 }
+- name: remove disabled mods from pack
+  file:
+    state: absent
+    path: ~/ftb_servers/FTBInfinityServer/mods/{{item}}
+  with_items:
+    - witchery-1.7.10-0.22.0.jar
+    - BiomesOPlenty-1.7.10-2.1.0.1057-universal.jar
+    - NotEnoughResources-1.7.10-0.1.0.86.jar
+    - JourneyMapServer1.0.2_MC1.7.10.jar
+- { include: configure.yaml, server_name: FTBInfinityServer }
+- name: start server
+  command: dtach -n ~/ftb_servers/FTBInfinityServer.sock ./ServerStart.sh
+  args:
+    chdir: ~/ftb_servers/FTBInfinityServer

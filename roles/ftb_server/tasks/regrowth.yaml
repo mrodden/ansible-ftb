@@ -1,0 +1,15 @@
+---
+- { include: install.yaml,
+    server_url: 'http://www.creeperrepo.net/FTB2/modpacks/Regrowth/0_7_2/RegrowthServer.zip',
+    server_name: Regrowth,
+    server_version: 0.7.2 }
+- { include: configure.yaml, server_name: Regrowth }
+- name: fix stupid ServerStart.sh
+  lineinfile:
+    dest: ~/ftb_servers/Regrowth/ServerStart.sh
+    state: absent
+    regexp: "^pause"
+- name: start server
+  command: dtach -n ~/ftb_servers/Regrowth.sock ./ServerStart.sh
+  args:
+    chdir: ~/ftb_servers/Regrowth
